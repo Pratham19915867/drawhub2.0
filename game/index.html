@@ -22,11 +22,7 @@
             --shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Nunito', sans-serif;
@@ -36,11 +32,7 @@
         }
 
         /* =============== SCREENS =============== */
-        .screen {
-            display: none;
-            width: 100%;
-            min-height: 100vh;
-        }
+        .screen { display: none; width: 100%; min-height: 100vh; }
         .screen.active { display: flex; }
 
         /* =============== LOBBY SCREEN =============== */
@@ -55,7 +47,7 @@
         .lobby-container {
             background: white;
             border-radius: 24px;
-            padding: 50px 40px;
+            padding: 40px 30px;
             box-shadow: var(--shadow);
             text-align: center;
             max-width: 480px;
@@ -70,7 +62,7 @@
 
         .game-logo {
             font-family: 'Fredoka One', cursive;
-            font-size: 52px;
+            font-size: 48px;
             background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -79,13 +71,27 @@
 
         .game-subtitle {
             color: var(--text-muted);
-            font-size: 16px;
-            margin-bottom: 35px;
+            font-size: 15px;
+            margin-bottom: 20px;
         }
 
-        .input-group {
-            margin-bottom: 16px;
+        /* Server Status Banner */
+        .status-banner {
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
+        .status-banner.connecting { background: #fef3c7; color: #d97706; }
+        .status-banner.connected { background: #dcfce7; color: #15803d; }
+        .status-banner.error { background: #fee2e2; color: #dc2626; }
+
+        .input-group { margin-bottom: 16px; }
 
         .input-group label {
             display: block;
@@ -113,10 +119,6 @@
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
-        .input-group input::placeholder {
-            color: #cbd5e1;
-        }
-
         .btn {
             padding: 14px 32px;
             border: none;
@@ -132,7 +134,7 @@
             gap: 8px;
         }
 
-        .btn:active { transform: scale(0.96); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .btn-primary {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -140,7 +142,6 @@
             width: 100%;
             margin-top: 10px;
         }
-        .btn-primary:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
 
         .btn-accent {
             background: linear-gradient(135deg, #f59e0b, #f97316);
@@ -148,32 +149,19 @@
             width: 100%;
             margin-top: 10px;
         }
-        .btn-accent:hover { box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); }
 
-        .btn-success {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: white;
-        }
-        .btn-success:hover { box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
+        .btn-success { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
 
         .divider {
             display: flex;
             align-items: center;
-            margin: 24px 0;
+            margin: 20px 0;
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
         }
         .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
+            content: ''; flex: 1; height: 1px; background: var(--border);
         }
         .divider::before { margin-right: 16px; }
         .divider::after { margin-left: 16px; }
@@ -219,15 +207,6 @@
             transition: 0.3s;
             display: inline-block;
         }
-        .room-code-display:hover {
-            background: #e2e8f0;
-        }
-
-        .copy-hint {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-        }
 
         .players-grid {
             display: grid;
@@ -247,78 +226,18 @@
             font-weight: 700;
             font-size: 14px;
         }
-        .player-chip.host { border-color: var(--accent); background: #fffbeb; }
-        .player-chip .chip-avatar { font-size: 22px; }
 
         /* =============== GAME SCREEN =============== */
-        #gameScreen {
-            flex-direction: column;
-            height: 100vh;
-            padding: 10px;
-        }
+        #gameScreen { flex-direction: column; height: 100vh; padding: 10px; }
 
-        /* Game Header Bar */
         .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 8px 20px;
             color: white;
-            flex-shrink: 0;
         }
 
-        .game-header .logo-sm {
-            font-family: 'Fredoka One', cursive;
-            font-size: 22px;
-        }
-
-        .game-header .round-info {
-            background: rgba(255,255,255,0.2);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            backdrop-filter: blur(5px);
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .connection-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-        }
-
-        .status-dot {
-            width: 8px; height: 8px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .btn-leave-sm {
-            background: rgba(239,68,68,0.9);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            font-family: 'Nunito', sans-serif;
-        }
-
-        /* Game Content - 3 Column Layout */
         .game-content {
             display: grid;
             grid-template-columns: 260px 1fr 300px;
@@ -334,143 +253,10 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            padding: 12px;
         }
 
-        /* Left Panel: Players */
-        .players-panel {
-            padding: 16px;
-        }
-
-        .panel-title {
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .player-count-badge {
-            font-size: 12px;
-            background: #f1f5f9;
-            padding: 2px 10px;
-            border-radius: 10px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .player-list {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .player-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 12px;
-            margin-bottom: 6px;
-            border: 2px solid transparent;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .player-item.drawing {
-            border-color: #f59e0b;
-            background: #fffbeb;
-        }
-
-        .player-item.guessed {
-            border-color: #22c55e;
-            background: #f0fdf4;
-        }
-
-        .player-avatar { font-size: 28px; }
-
-        .player-info {
-            flex: 1;
-        }
-
-        .player-name {
-            font-weight: 800;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .mini-badge {
-            font-size: 9px;
-            padding: 1px 6px;
-            border-radius: 6px;
-            font-weight: 800;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        .mini-badge.you { background: #3b82f6; }
-        .mini-badge.host { background: #8b5cf6; }
-        .mini-badge.drawing-badge { background: #f59e0b; }
-
-        .player-score {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .player-status {
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .player-status.guessed-text { color: #22c55e; }
-        .player-status.guessing-text { color: #f59e0b; }
-
-        /* Timer Section */
-        .timer-section {
-            margin-top: auto;
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .timer-big {
-            font-family: 'Fredoka One', cursive;
-            font-size: 36px;
-            color: var(--text);
-        }
-
-        .timer-big.warning { color: #f59e0b; }
-        .timer-big.danger { color: #ef4444; animation: shake 0.5s ease infinite; }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
-        }
-
-        .timer-bar {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-
-        .timer-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
-            border-radius: 3px;
-            transition: width 1s linear;
-        }
-
-        /* Center Panel: Canvas */
-        .canvas-panel {
-            display: flex;
-            flex-direction: column;
-            background: #f1f5f9;
-        }
+        .canvas-panel { background: #f1f5f9; padding: 0; }
 
         .word-display {
             text-align: center;
@@ -487,58 +273,6 @@
             justify-content: center;
         }
 
-        .drawing-toolbar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            background: white;
-            border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .tool-group {
-            display: flex;
-            gap: 4px;
-            padding: 0 8px;
-            border-right: 1px solid var(--border);
-        }
-        .tool-group:last-child { border-right: none; }
-
-        .tool-icon-btn {
-            width: 36px;
-            height: 36px;
-            border: 2px solid transparent;
-            background: #f1f5f9;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: 0.2s;
-        }
-        .tool-icon-btn:hover { background: #e2e8f0; }
-        .tool-icon-btn.active { border-color: var(--primary); background: #eff6ff; }
-
-        .color-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 3px solid white;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        .color-btn:hover { transform: scale(1.2); }
-        .color-btn.active { border-color: #1e293b; transform: scale(1.15); }
-
-        .brush-size-slider {
-            width: 80px;
-            accent-color: var(--primary);
-        }
-
         .canvas-wrapper {
             flex: 1;
             display: flex;
@@ -546,317 +280,56 @@
             justify-content: center;
             padding: 8px;
             position: relative;
-            overflow: hidden;
         }
 
         #drawCanvas {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             cursor: crosshair;
             touch-action: none;
             max-width: 100%;
             max-height: 100%;
         }
 
-        .canvas-disabled-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            display: none;
-            z-index: 10;
-        }
-        .canvas-disabled-overlay.show { display: block; cursor: not-allowed; }
-
-        /* Right Panel: Chat */
-        .chat-panel {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-header {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 12px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .msg {
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            animation: fadeInMsg 0.3s ease;
-        }
+        .msg { padding: 8px 12px; border-radius: 10px; font-size: 14px; background: #f8fafc; }
+        .msg-system { background: #eff6ff; color: #1d4ed8; font-weight: 700; text-align: center; }
+        .msg-correct { background: #dcfce7; color: #15803d; font-weight: 800; text-align: center; }
 
-        @keyframes fadeInMsg {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .chat-input-box { display: flex; gap: 8px; margin-top: 10px; }
+        .chat-input-box input { flex: 1; padding: 10px; border: 2px solid var(--border); border-radius: 10px; outline: none; }
+        .chat-input-box button { padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-        .msg-system {
-            background: #eff6ff;
-            color: #1d4ed8;
-            font-weight: 700;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .msg-correct {
-            background: #dcfce7;
-            color: #15803d;
-            font-weight: 800;
-            text-align: center;
-        }
-
-        .msg-close {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .msg-normal {
-            background: #f8fafc;
-        }
-
-        .msg-sender {
-            font-weight: 800;
-            font-size: 12px;
-            color: var(--primary);
-            margin-bottom: 2px;
-        }
-
-        .msg-guessed-own {
-            background: #dbeafe;
-            color: #1d4ed8;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .chat-input-box {
-            padding: 10px 12px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 8px;
-        }
-
-        .chat-input-box input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            outline: none;
-        }
-        .chat-input-box input:focus { border-color: var(--primary); }
-
-        .chat-input-box button {
-            padding: 10px 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            font-family: 'Nunito', sans-serif;
-        }
-
-        /* =============== POPUPS / MODALS =============== */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(4px);
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); display: none;
+            align-items: center; justify-content: center; z-index: 1000;
         }
-        .modal-overlay.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-            animation: popIn 0.4s ease;
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-emoji { font-size: 60px; margin-bottom: 16px; }
-        .modal-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 28px;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-        .modal-subtitle {
-            color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        .word-reveal {
-            font-family: 'Fredoka One', cursive;
-            font-size: 36px;
-            color: var(--primary);
-            background: #f1f5f9;
-            padding: 12px 30px;
-            border-radius: 12px;
-            display: inline-block;
-            margin: 12px 0;
-            letter-spacing: 3px;
-        }
-
-        .scoreboard {
-            margin: 16px 0;
-            text-align: left;
-        }
-
-        .score-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-        .score-row:nth-child(1) { background: #fef3c7; }
-        .score-row:nth-child(2) { background: #f1f5f9; }
-        .score-row:nth-child(3) { background: #fff7ed; }
-
-        .score-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .score-rank { font-size: 20px; }
-        .score-points {
-            font-family: 'Fredoka One', cursive;
-            color: var(--primary);
-        }
-
-        /* Word Choice Modal */
-        .word-choices {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .word-choice-btn {
-            padding: 16px 24px;
-            background: #f8fafc;
-            border: 3px solid var(--border);
-            border-radius: 14px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 22px;
-            letter-spacing: 3px;
-            cursor: pointer;
-            transition: 0.3s;
-            color: var(--text);
-        }
-        .word-choice-btn:hover {
-            border-color: var(--primary);
-            background: #eff6ff;
-            transform: scale(1.03);
-        }
-
-        /* Game Over Modal */
-        .winner-crown { font-size: 80px; animation: bounce 1s ease infinite; }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* Confetti Animation */
-        .confetti-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            animation: confettiFall linear forwards;
-        }
-
-        @keyframes confettiFall {
-            to {
-                top: 110vh;
-                transform: rotate(720deg);
-            }
-        }
-
-        /* VFX Flash */
-        .vfx-flash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(34, 197, 94, 0.3);
-            pointer-events: none;
-            z-index: 998;
-            animation: flashAnim 0.5s ease forwards;
-        }
-
-        @keyframes flashAnim {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .game-content {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-            }
-            .players-panel { max-height: 150px; overflow-y: auto; }
-            .player-list { display: flex; gap: 8px; overflow-x: auto; flex-wrap: nowrap; }
-            .player-item { min-width: 140px; flex-shrink: 0; }
-        }
-
-        @media (max-width: 600px) {
-            .lobby-container { padding: 30px 20px; }
-            .game-logo { font-size: 36px; }
-            .room-code-display { font-size: 32px; letter-spacing: 4px; }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { background: white; border-radius: 24px; padding: 30px; text-align: center; max-width: 450px; width: 90%; }
+        .word-choice-btn { width: 100%; padding: 14px; margin-bottom: 8px; border: 2px solid var(--border); border-radius: 12px; font-size: 20px; font-family: 'Fredoka One'; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- ========== LOBBY SCREEN ========== -->
+    <!-- LOBBY SCREEN -->
     <div class="screen active" id="lobbyScreen">
         <div class="lobby-container">
             <div class="game-logo">DrawTogether</div>
             <div class="game-subtitle">🎨 Draw, Guess & Have Fun with Friends!</div>
+
+            <!-- Server Status Indicator -->
+            <div class="status-banner connecting" id="statusBanner">
+                <span>⏳ Connecting to Server...</span>
+            </div>
 
             <div class="input-group">
                 <label>👤 Your Name</label>
@@ -869,7 +342,7 @@
 
             <div class="input-group">
                 <label>🔑 Room Code</label>
-                <input type="text" id="roomCodeInput" placeholder="Enter 6-digit room code..." maxlength="6" style="text-transform: uppercase; letter-spacing: 3px; text-align: center; font-family: 'Fredoka One', cursive; font-size: 20px;" autocomplete="off">
+                <input type="text" id="roomCodeInput" placeholder="ENTER ROOM CODE..." maxlength="6" style="text-transform: uppercase; letter-spacing: 3px; text-align: center; font-family: 'Fredoka One', cursive; font-size: 20px;" autocomplete="off">
             </div>
 
             <button class="btn btn-accent" id="joinRoomBtn">🚀 Join Room</button>
@@ -878,16 +351,15 @@
         </div>
     </div>
 
-    <!-- ========== WAITING ROOM SCREEN ========== -->
+    <!-- WAITING ROOM SCREEN -->
     <div class="screen" id="waitingScreen">
         <div class="waiting-container">
             <div class="game-logo" style="font-size: 36px;">DrawTogether</div>
-            <div style="color: var(--text-muted); margin-top: 5px;">Share the room code with friends!</div>
+            <div style="color: var(--text-muted); margin-top: 5px;">Share code with friends:</div>
 
-            <div class="room-code-display" id="roomCodeDisplay" title="Click to copy">------</div>
-            <div class="copy-hint">📋 Click code to copy</div>
+            <div class="room-code-display" id="roomCodeDisplay">------</div>
 
-            <div class="panel-title" style="justify-content: center; gap: 10px;">
+            <div style="margin: 15px 0; font-weight: 700;">
                 Players Joined: <span id="waitingPlayerCount">0</span>
             </div>
 
@@ -896,249 +368,66 @@
             <button class="btn btn-success" id="startGameBtn" style="width: 100%; margin-top: 16px; display: none;">
                 🎮 Start Game!
             </button>
-
-            <div id="waitingMsg" style="color: var(--text-muted); font-size: 14px; margin-top: 12px;">
-                Waiting for host to start the game...
-            </div>
+            <div id="waitingMsg" style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">Waiting for players...</div>
         </div>
     </div>
 
-    <!-- ========== GAME SCREEN ========== -->
+    <!-- GAME SCREEN -->
     <div class="screen" id="gameScreen">
-        <!-- Header Bar -->
         <div class="game-header">
-            <div class="logo-sm">🎨 DrawTogether</div>
-            <div class="round-info" id="roundInfo">Round 1</div>
-            <div class="header-right">
-                <div class="connection-status">
-                    <div class="status-dot"></div>
-                    <span>Connected</span>
-                </div>
-                <button class="btn-leave-sm" id="leaveGameBtn">Leave</button>
-            </div>
+            <div style="font-family: 'Fredoka One'; font-size: 22px;">🎨 DrawTogether</div>
+            <div id="roundInfo" style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px; font-weight: 700;">Round 1</div>
         </div>
 
-        <!-- Main 3-Column Layout -->
         <div class="game-content">
-
-            <!-- Left: Players -->
-            <div class="game-panel players-panel">
-                <div class="panel-title">
-                    Players
-                    <span class="player-count-badge" id="gamePlayerCount">0/10</span>
-                </div>
-                <div class="player-list" id="gamePlayerList"></div>
-                <div class="timer-section">
-                    <div class="timer-big" id="timerDisplay">⏳</div>
-                    <div class="timer-bar">
-                        <div class="timer-bar-fill" id="timerBarFill" style="width: 100%"></div>
-                    </div>
-                </div>
+            <div class="game-panel">
+                <div style="font-weight: 800; margin-bottom: 10px;">Players</div>
+                <div id="gamePlayerList" style="flex: 1; overflow-y: auto;"></div>
+                <div id="timerDisplay" style="font-family: 'Fredoka One'; font-size: 32px; text-align: center; margin-top: 10px;">⏳ 80s</div>
             </div>
 
-            <!-- Center: Canvas -->
             <div class="game-panel canvas-panel">
                 <div class="word-display" id="wordDisplay">Waiting...</div>
-
-                <div class="drawing-toolbar" id="drawingToolbar" style="display: none;">
-                    <div class="tool-group">
-                        <button class="tool-icon-btn active" data-tool="pencil" title="Pencil">✏️</button>
-                        <button class="tool-icon-btn" data-tool="eraser" title="Eraser">🧹</button>
-                        <button class="tool-icon-btn" data-tool="fill" title="Fill">🪣</button>
-                    </div>
-                    <div class="tool-group" id="colorPalette">
-                        <button class="color-btn active" data-color="#000000" style="background:#000000"></button>
-                        <button class="color-btn" data-color="#ef4444" style="background:#ef4444"></button>
-                        <button class="color-btn" data-color="#f97316" style="background:#f97316"></button>
-                        <button class="color-btn" data-color="#eab308" style="background:#eab308"></button>
-                        <button class="color-btn" data-color="#22c55e" style="background:#22c55e"></button>
-                        <button class="color-btn" data-color="#3b82f6" style="background:#3b82f6"></button>
-                        <button class="color-btn" data-color="#8b5cf6" style="background:#8b5cf6"></button>
-                        <button class="color-btn" data-color="#ec4899" style="background:#ec4899"></button>
-                        <button class="color-btn" data-color="#ffffff" style="background:#ffffff; border-color:#ccc"></button>
-                        <button class="color-btn" data-color="#78716c" style="background:#78716c"></button>
-                        <button class="color-btn" data-color="#92400e" style="background:#92400e"></button>
-                        <input type="color" id="customColor" style="width:28px;height:28px;border:none;cursor:pointer;border-radius:50%;" title="Custom Color">
-                    </div>
-                    <div class="tool-group">
-                        <input type="range" class="brush-size-slider" id="brushSizeSlider" min="2" max="40" value="5">
-                    </div>
-                    <div class="tool-group">
-                        <button class="tool-icon-btn" data-tool="undo" title="Undo">↩️</button>
-                        <button class="tool-icon-btn" data-tool="clear" title="Clear All">🗑️</button>
-                    </div>
-                </div>
-
                 <div class="canvas-wrapper">
-                    <canvas id="drawCanvas" width="780" height="500"></canvas>
-                    <div class="canvas-disabled-overlay" id="canvasOverlay"></div>
+                    <canvas id="drawCanvas" width="700" height="450"></canvas>
                 </div>
             </div>
 
-            <!-- Right: Chat -->
-            <div class="game-panel chat-panel">
-                <div class="chat-header">
-                    <div class="panel-title" style="margin-bottom: 0;">💬 Chat & Guesses</div>
-                </div>
+            <div class="game-panel">
+                <div style="font-weight: 800; margin-bottom: 10px;">Chat & Guesses</div>
                 <div class="chat-messages" id="chatMessages"></div>
                 <div class="chat-input-box">
-                    <input type="text" id="chatInput" placeholder="Type your guess..." maxlength="100" autocomplete="off">
+                    <input type="text" id="chatInput" placeholder="Type guess..." autocomplete="off">
                     <button id="chatSendBtn">Send</button>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- ========== WORD CHOICE MODAL ========== -->
+    <!-- WORD CHOICE MODAL -->
     <div class="modal-overlay" id="wordChoiceModal">
         <div class="modal-content">
-            <div class="modal-emoji">🎨</div>
-            <div class="modal-title">Choose a Word!</div>
-            <div class="modal-subtitle">Pick one word to draw for others to guess</div>
-            <div class="word-choices" id="wordChoicesList"></div>
-            <div id="chooseTimer" style="color: var(--text-muted); font-weight: 700; margin-top: 10px;">15s to choose...</div>
+            <div style="font-size: 40px; margin-bottom: 10px;">🎨</div>
+            <div style="font-family: 'Fredoka One'; font-size: 24px; margin-bottom: 15px;">Choose a Word!</div>
+            <div id="wordChoicesList"></div>
         </div>
     </div>
 
-    <!-- ========== ROUND END MODAL ========== -->
+    <!-- ROUND END MODAL -->
     <div class="modal-overlay" id="roundEndModal">
         <div class="modal-content">
-            <div class="modal-emoji" id="roundEndEmoji">⏰</div>
-            <div class="modal-title" id="roundEndTitle">Time's Up!</div>
-            <div class="modal-subtitle" id="roundEndSubtitle"></div>
-            <div class="word-reveal" id="roundEndWord">WORD</div>
-            <div class="scoreboard" id="roundEndScoreboard"></div>
+            <div style="font-size: 40px;" id="roundEndEmoji">⏰</div>
+            <div style="font-family: 'Fredoka One'; font-size: 24px;" id="roundEndTitle">Time's Up!</div>
+            <div style="font-size: 28px; font-family: 'Fredoka One'; color: var(--primary); margin: 15px 0;" id="roundEndWord">WORD</div>
+            <div id="roundEndScoreboard"></div>
         </div>
     </div>
-
-    <!-- ========== GAME OVER MODAL ========== -->
-    <div class="modal-overlay" id="gameOverModal">
-        <div class="modal-content">
-            <div class="winner-crown">👑</div>
-            <div class="modal-title" id="gameOverTitle">Game Over!</div>
-            <div class="modal-subtitle" id="gameOverSubtitle"></div>
-            <div class="scoreboard" id="gameOverScoreboard"></div>
-            <button class="btn btn-primary" id="playAgainBtn" style="margin-top: 20px; display: none;">🔄 Play Again</button>
-            <button class="btn btn-accent" id="backToLobbyBtn" style="margin-top: 10px;">🏠 Back to Lobby</button>
-        </div>
-    </div>
-
-    <!-- ========== CONFETTI CONTAINER ========== -->
-    <div class="confetti-container" id="confettiContainer"></div>
-
-    <!-- ========== AUDIO ========== -->
 
     <script>
-        // ============ SOUND EFFECTS ============
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        let audioCtx;
+        // AUTO-DETECT BACKEND URL (Works both locally AND on public deployed websites)
+        const BACKEND_URL = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:3000';
+        const socket = io(BACKEND_URL, { transports: ['websocket', 'polling'] });
 
-        function initAudio() {
-            if (!audioCtx) audioCtx = new AudioCtx();
-        }
-
-        function playSound(type) {
-            initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            switch(type) {
-                case 'correct':
-                    osc.frequency.setValueAtTime(523, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-                    osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
-                    break;
-                case 'wrong':
-                    osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(150, audioCtx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
-                    break;
-                case 'tick':
-                    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
-                    break;
-                case 'roundEnd':
-                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(330, audioCtx.currentTime + 0.2);
-                    osc.frequency.setValueAtTime(262, audioCtx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.6);
-                    break;
-                case 'victory':
-                    [523, 659, 784, 1047].forEach((freq, i) => {
-                        const o = audioCtx.createOscillator();
-                        const g = audioCtx.createGain();
-                        o.connect(g); g.connect(audioCtx.destination);
-                        o.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.15);
-                        g.gain.setValueAtTime(0.2, audioCtx.currentTime + i * 0.15);
-                        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.15 + 0.4);
-                        o.start(audioCtx.currentTime + i * 0.15);
-                        o.stop(audioCtx.currentTime + i * 0.15 + 0.4);
-                    });
-                    break;
-                case 'join':
-                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(800, audioCtx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.2);
-                    break;
-                case 'choose':
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(550, audioCtx.currentTime + 0.1);
-                    osc.frequency.setValueAtTime(660, audioCtx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.4);
-                    break;
-            }
-        }
-
-        // ============ CONFETTI ============
-        function launchConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#ef4444', '#f59e0b', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4'];
-
-            for (let i = 0; i < 80; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                confetti.style.animationDuration = Math.random() * 2 + 1.5 + 's';
-                confetti.style.animationDelay = Math.random() * 1 + 's';
-                container.appendChild(confetti);
-            }
-
-            setTimeout(() => { container.innerHTML = ''; }, 4000);
-        }
-
-        function flashVFX(color = 'rgba(34, 197, 94, 0.3)') {
-            const flash = document.createElement('div');
-            flash.className = 'vfx-flash';
-            flash.style.background = color;
-            document.body.appendChild(flash);
-            setTimeout(() => flash.remove(), 500);
-        }
-
-        // ============ SOCKET CONNECTION ============
-        const socket = io();
-
-        // ============ STATE ============
         let myId = null;
         let myName = '';
         let currentRoomCode = '';
@@ -1146,15 +435,6 @@
         let isDrawer = false;
         let gamePhase = 'waiting';
 
-        // Canvas drawing state
-        let drawing = false;
-        let currentTool = 'pencil';
-        let currentColor = '#000000';
-        let brushSize = 5;
-        let canvasHistory = [];
-        let historyIndex = -1;
-
-        // ============ DOM REFERENCES ============
         const screens = {
             lobby: document.getElementById('lobbyScreen'),
             waiting: document.getElementById('waitingScreen'),
@@ -1167,45 +447,31 @@
             createRoomBtn: document.getElementById('createRoomBtn'),
             joinRoomBtn: document.getElementById('joinRoomBtn'),
             lobbyError: document.getElementById('lobbyError'),
+            statusBanner: document.getElementById('statusBanner'),
             roomCodeDisplay: document.getElementById('roomCodeDisplay'),
             waitingPlayerCount: document.getElementById('waitingPlayerCount'),
             waitingPlayersList: document.getElementById('waitingPlayersList'),
             startGameBtn: document.getElementById('startGameBtn'),
             waitingMsg: document.getElementById('waitingMsg'),
             roundInfo: document.getElementById('roundInfo'),
-            gamePlayerCount: document.getElementById('gamePlayerCount'),
             gamePlayerList: document.getElementById('gamePlayerList'),
             timerDisplay: document.getElementById('timerDisplay'),
-            timerBarFill: document.getElementById('timerBarFill'),
             wordDisplay: document.getElementById('wordDisplay'),
-            drawingToolbar: document.getElementById('drawingToolbar'),
-            canvasOverlay: document.getElementById('canvasOverlay'),
             chatMessages: document.getElementById('chatMessages'),
             chatInput: document.getElementById('chatInput'),
             chatSendBtn: document.getElementById('chatSendBtn'),
-            leaveGameBtn: document.getElementById('leaveGameBtn'),
-            // Modals
             wordChoiceModal: document.getElementById('wordChoiceModal'),
             wordChoicesList: document.getElementById('wordChoicesList'),
-            chooseTimer: document.getElementById('chooseTimer'),
             roundEndModal: document.getElementById('roundEndModal'),
             roundEndEmoji: document.getElementById('roundEndEmoji'),
             roundEndTitle: document.getElementById('roundEndTitle'),
-            roundEndSubtitle: document.getElementById('roundEndSubtitle'),
             roundEndWord: document.getElementById('roundEndWord'),
-            roundEndScoreboard: document.getElementById('roundEndScoreboard'),
-            gameOverModal: document.getElementById('gameOverModal'),
-            gameOverTitle: document.getElementById('gameOverTitle'),
-            gameOverSubtitle: document.getElementById('gameOverSubtitle'),
-            gameOverScoreboard: document.getElementById('gameOverScoreboard'),
-            playAgainBtn: document.getElementById('playAgainBtn'),
-            backToLobbyBtn: document.getElementById('backToLobbyBtn')
+            roundEndScoreboard: document.getElementById('roundEndScoreboard')
         };
 
         const canvas = document.getElementById('drawCanvas');
         const ctx = canvas.getContext('2d');
 
-        // ============ SCREEN MANAGEMENT ============
         function showScreen(name) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screens[name].classList.add('active');
@@ -1217,11 +483,33 @@
             setTimeout(() => elements.lobbyError.classList.remove('show'), 4000);
         }
 
-        // ============ LOBBY EVENTS ============
+        // SOCKET STATUS HANDLERS
+        socket.on('connect', () => {
+            elements.statusBanner.className = 'status-banner connected';
+            elements.statusBanner.innerHTML = '<span>🟢 Server Connected! Ready to Play</span>';
+            elements.createRoomBtn.disabled = false;
+            elements.joinRoomBtn.disabled = false;
+        });
+
+        socket.on('connect_error', () => {
+            elements.statusBanner.className = 'status-banner error';
+            elements.statusBanner.innerHTML = '<span>🔴 Server Waking Up... Please wait 10s</span>';
+        });
+
+        socket.on('disconnect', () => {
+            elements.statusBanner.className = 'status-banner connecting';
+            elements.statusBanner.innerHTML = '<span>⏳ Reconnecting to Server...</span>';
+        });
+
+        // LOBBY EVENTS
         elements.createRoomBtn.addEventListener('click', () => {
             const name = elements.playerNameInput.value.trim();
             if (!name) { showError('Please enter your name!'); return; }
+            if (!socket.connected) { showError('Connecting to server... Try again in 5 seconds!'); return; }
+            
             myName = name;
+            elements.createRoomBtn.disabled = true;
+            elements.createRoomBtn.textContent = '⏳ Creating Room...';
             socket.emit('create_room', { playerName: name });
         });
 
@@ -1229,660 +517,168 @@
             const name = elements.playerNameInput.value.trim();
             const code = elements.roomCodeInput.value.trim().toUpperCase();
             if (!name) { showError('Please enter your name!'); return; }
-            if (!code || code.length < 4) { showError('Please enter a valid room code!'); return; }
+            if (!code) { showError('Please enter room code!'); return; }
+            if (!socket.connected) { showError('Connecting to server... Try again in 5 seconds!'); return; }
+
             myName = name;
             socket.emit('join_room', { playerName: name, roomCode: code });
         });
 
-        elements.roomCodeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') elements.joinRoomBtn.click();
-        });
-
-        elements.playerNameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                if (elements.roomCodeInput.value.trim()) {
-                    elements.joinRoomBtn.click();
-                } else {
-                    elements.createRoomBtn.click();
-                }
-            }
-        });
-
-        // Copy room code
-        elements.roomCodeDisplay.addEventListener('click', () => {
-            navigator.clipboard.writeText(currentRoomCode).then(() => {
-                const original = elements.roomCodeDisplay.textContent;
-                elements.roomCodeDisplay.textContent = '✅ Copied!';
-                setTimeout(() => elements.roomCodeDisplay.textContent = original, 1500);
-            });
-        });
-
-        // Start Game Button
-        elements.startGameBtn.addEventListener('click', () => {
-            socket.emit('start_game');
-        });
-
-        // Leave Game
-        elements.leaveGameBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to leave?')) {
-                location.reload();
-            }
-        });
-
-        elements.backToLobbyBtn.addEventListener('click', () => {
-            location.reload();
-        });
-
-        elements.playAgainBtn.addEventListener('click', () => {
-            elements.gameOverModal.classList.remove('show');
-            socket.emit('start_game');
-        });
-
-        // ============ SOCKET HANDLERS ============
-
-        // Room Created
+        // ROOM SOCKET EVENTS
         socket.on('room_created', (data) => {
+            elements.createRoomBtn.disabled = false;
+            elements.createRoomBtn.textContent = '🏠 Create New Room';
             myId = socket.id;
             currentRoomCode = data.roomCode;
             isHost = true;
             elements.roomCodeDisplay.textContent = data.roomCode;
             updateWaitingPlayers(data.players);
             elements.startGameBtn.style.display = 'block';
-            elements.waitingMsg.textContent = 'You are the host! Start when everyone joins.';
+            elements.waitingMsg.textContent = 'You are host! Start game when players join.';
             showScreen('waiting');
-            playSound('join');
         });
 
-        // Room Joined
         socket.on('room_joined', (data) => {
             myId = socket.id;
             currentRoomCode = data.roomCode;
             isHost = data.player.isHost;
             elements.roomCodeDisplay.textContent = data.roomCode;
             updateWaitingPlayers(data.players);
-            if (isHost) {
-                elements.startGameBtn.style.display = 'block';
-                elements.waitingMsg.textContent = 'You are the host! Start when everyone joins.';
-            }
             showScreen('waiting');
-            playSound('join');
         });
 
-        socket.on('join_error', (data) => {
-            showError(data.message);
-        });
+        socket.on('join_error', (data) => showError(data.message));
 
-        socket.on('game_error', (data) => {
-            alert(data.message);
-        });
-
-        // Player Joined
         socket.on('player_joined', (data) => {
             updateWaitingPlayers(data.players);
-            addChatMsg('system', `${data.player.name} joined the game! 🎉`);
-            playSound('join');
+            addChatMsg('system', `${data.player.name} joined!`);
         });
 
-        // Player Left
         socket.on('player_left', (data) => {
-            if (screens.waiting.classList.contains('active')) {
-                updateWaitingPlayers(data.players);
-            }
-            if (data.newHostId === socket.id) {
-                isHost = true;
-                elements.startGameBtn.style.display = 'block';
-            }
-            addChatMsg('system', `${data.playerName} left the game 👋`);
-            updateGamePlayers(data.players);
+            updateWaitingPlayers(data.players);
+            addChatMsg('system', `${data.playerName} left.`);
         });
 
-        // Game Started
-        socket.on('game_started', (data) => {
+        elements.startGameBtn.addEventListener('click', () => socket.emit('start_game'));
+
+        socket.on('game_started', () => {
             showScreen('game');
             clearCanvas();
-            clearChat();
-            addChatMsg('system', '🎮 Game Started! Get ready!');
-            playSound('choose');
         });
 
-        // Choosing Phase
         socket.on('choosing_phase', (data) => {
             gamePhase = 'choosing';
             isDrawer = (data.drawerId === socket.id);
+            elements.wordDisplay.textContent = `${data.drawerName} is choosing word...`;
             elements.roundInfo.textContent = `Round ${data.roundNumber} of ${data.totalRounds}`;
-            elements.wordDisplay.textContent = `${data.drawerName} is choosing a word...`;
-            elements.timerDisplay.textContent = '⏳';
-            elements.timerBarFill.style.width = '100%';
-            elements.drawingToolbar.style.display = 'none';
-            elements.canvasOverlay.classList.add('show');
             clearCanvas();
             updateGamePlayers(data.players);
         });
 
-        // Choose Word (sent only to drawer)
         socket.on('choose_word', (data) => {
-            playSound('choose');
-            showWordChoiceModal(data.words, data.timeToChoose);
+            elements.wordChoicesList.innerHTML = '';
+            data.words.forEach(word => {
+                const btn = document.createElement('button');
+                btn.className = 'word-choice-btn';
+                btn.textContent = word;
+                btn.onclick = () => {
+                    socket.emit('word_chosen', { word: word });
+                    elements.wordChoiceModal.classList.remove('show');
+                };
+                elements.wordChoicesList.appendChild(btn);
+            });
+            elements.wordChoiceModal.classList.add('show');
         });
 
-        // Round Started
         socket.on('round_started', (data) => {
             gamePhase = 'drawing';
             isDrawer = (data.drawerId === socket.id);
             elements.roundEndModal.classList.remove('show');
-
-            if (isDrawer) {
-                // Already handled by start_drawing
-            } else {
-                elements.wordDisplay.textContent = data.hint;
-                elements.drawingToolbar.style.display = 'none';
-                elements.canvasOverlay.classList.add('show');
-                elements.chatInput.placeholder = 'Type your guess...';
-                elements.chatInput.disabled = false;
-            }
-
-            clearCanvas();
+            if (!isDrawer) elements.wordDisplay.textContent = data.hint;
             updateGamePlayers(data.players);
-            addChatMsg('system', `🎨 ${data.drawerName} is drawing! (${data.wordLength} letters)`);
         });
 
-        // Start Drawing (sent only to drawer)
         socket.on('start_drawing', (data) => {
             elements.wordDisplay.textContent = data.word;
-            elements.drawingToolbar.style.display = 'flex';
-            elements.canvasOverlay.classList.remove('show');
-            elements.chatInput.placeholder = "You're drawing! Can't guess.";
-            elements.chatInput.disabled = true;
-            canvasHistory = [];
-            historyIndex = -1;
-            saveCanvasState();
         });
 
-        // Timer Update
         socket.on('timer_update', (data) => {
-            const timeLeft = data.timeLeft;
-            const totalTime = data.totalTime;
-            const percentage = (timeLeft / totalTime) * 100;
-
-            elements.timerDisplay.textContent = timeLeft + 's';
-            elements.timerBarFill.style.width = percentage + '%';
-
-            elements.timerDisplay.className = 'timer-big';
-            if (timeLeft <= 10) {
-                elements.timerDisplay.classList.add('danger');
-                if (timeLeft <= 5) playSound('tick');
-            } else if (timeLeft <= 20) {
-                elements.timerDisplay.classList.add('warning');
-            }
+            elements.timerDisplay.textContent = `⏳ ${data.timeLeft}s`;
         });
 
-        // Hint Update
-        socket.on('hint_update', (data) => {
-            if (!isDrawer) {
-                elements.wordDisplay.textContent = data.hint;
-            }
-        });
-
-        // Draw Data from other players
-        socket.on('draw_data', (data) => {
-            drawRemoteData(data);
-        });
-
-        socket.on('canvas_clear', () => {
-            clearCanvas();
-        });
-
-        socket.on('undo_action', () => {
-            // remote undo - we'd need full state sync for this
-            // simplified: just clear
-        });
-
-        // Chat Message
-        socket.on('chat_message', (data) => {
-            if (data.isClose) {
-                addChatMsg('close', `${data.senderName}: ${data.message}`);
-            } else {
-                addChatMsg('normal', data.message, data.senderName, data.senderAvatar);
-            }
-        });
-
-        // Correct Guess
-        socket.on('correct_guess', (data) => {
-            addChatMsg('correct', `🎉 ${data.playerName} guessed the word! (+${data.points} pts)`);
-            updateGamePlayers(data.players);
-            if (data.playerId !== socket.id) {
-                flashVFX('rgba(34, 197, 94, 0.2)');
-            }
-            playSound('correct');
-        });
-
-        // You guessed correct
-        socket.on('you_guessed_correct', (data) => {
-            addChatMsg('own-correct', `✅ You guessed it! The word was "${data.word}" (+${data.points} pts)`);
-            elements.chatInput.disabled = true;
-            elements.chatInput.placeholder = "You already guessed correctly! ✅";
-            flashVFX('rgba(34, 197, 94, 0.4)');
-            launchConfetti();
-            playSound('victory');
-        });
-
-        // Close Guess
-        socket.on('close_guess', (data) => {
-            // The close styling is handled in chat_message
-        });
-
-        // Round Ended
-        socket.on('round_ended', (data) => {
-            gamePhase = 'roundEnd';
-            playSound('roundEnd');
-
-            elements.roundEndEmoji.textContent = data.allGuessed ? '🎉' : '⏰';
-            elements.roundEndTitle.textContent = data.allGuessed ? 'Everyone Guessed!' : "Time's Up!";
-            elements.roundEndSubtitle.textContent = `${data.guessedCount}/${data.totalPlayers} players guessed correctly`;
-            elements.roundEndWord.textContent = data.word;
-
-            // Build scoreboard
-            let scoreHTML = '';
-            const medals = ['🥇', '🥈', '🥉'];
-            data.sortedPlayers.forEach((p, i) => {
-                scoreHTML += `
-                    <div class="score-row">
-                        <div class="score-left">
-                            <span class="score-rank">${medals[i] || (i+1)+'.'}</span>
-                            <span>${p.avatar} ${p.name}</span>
-                        </div>
-                        <span class="score-points">${p.score} pts</span>
-                    </div>
-                `;
-            });
-            elements.roundEndScoreboard.innerHTML = scoreHTML;
-
-            elements.roundEndModal.classList.add('show');
-
-            elements.drawingToolbar.style.display = 'none';
-            elements.canvasOverlay.classList.add('show');
-            elements.chatInput.disabled = false;
-            elements.chatInput.placeholder = 'Type your guess...';
-        });
-
-        // Game Over
-        socket.on('game_over', (data) => {
-            elements.roundEndModal.classList.remove('show');
-            playSound('victory');
-            launchConfetti();
-
-            elements.gameOverTitle.textContent = '🏆 Game Over!';
-            elements.gameOverSubtitle.textContent = `🎉 ${data.winner.name} wins with ${data.winner.score} points!`;
-
-            let scoreHTML = '';
-            const medals = ['🥇', '🥈', '🥉'];
-            data.sortedPlayers.forEach((p, i) => {
-                scoreHTML += `
-                    <div class="score-row">
-                        <div class="score-left">
-                            <span class="score-rank">${medals[i] || (i+1)+'.'}</span>
-                            <span>${p.avatar} ${p.name}</span>
-                        </div>
-                        <span class="score-points">${p.score} pts</span>
-                    </div>
-                `;
-            });
-            elements.gameOverScoreboard.innerHTML = scoreHTML;
-
-            if (isHost) {
-                elements.playAgainBtn.style.display = 'block';
-            }
-
-            elements.gameOverModal.classList.add('show');
-        });
-
-        // ============ WAITING ROOM HELPERS ============
-        function updateWaitingPlayers(players) {
-            const list = elements.waitingPlayersList;
-            list.innerHTML = '';
-            const count = Object.keys(players).length;
-            elements.waitingPlayerCount.textContent = count;
-
-            Object.values(players).forEach(p => {
-                const chip = document.createElement('div');
-                chip.className = 'player-chip' + (p.isHost ? ' host' : '');
-                chip.innerHTML = `
-                    <span class="chip-avatar">${p.avatar}</span>
-                    <span>${p.name} ${p.isHost ? '👑' : ''} ${p.id === socket.id ? '(You)' : ''}</span>
-                `;
-                list.appendChild(chip);
-            });
-        }
-
-        // ============ GAME PLAYER LIST ============
-        function updateGamePlayers(players) {
-            const list = elements.gamePlayerList;
-            list.innerHTML = '';
-            const sortedPlayers = Object.values(players).sort((a, b) => b.score - a.score);
-            elements.gamePlayerCount.textContent = `${sortedPlayers.length}/10`;
-
-            sortedPlayers.forEach(p => {
-                const item = document.createElement('div');
-                let classes = 'player-item';
-                if (p.isDrawing) classes += ' drawing';
-                else if (p.hasGuessed) classes += ' guessed';
-                item.className = classes;
-
-                let badges = '';
-                if (p.id === socket.id) badges += '<span class="mini-badge you">You</span>';
-                if (p.isHost) badges += '<span class="mini-badge host">Host</span>';
-                if (p.isDrawing) badges += '<span class="mini-badge drawing-badge">✏️ Drawing</span>';
-
-                let status = '';
-                if (p.isDrawing) status = '<div class="player-status" style="color:#f59e0b">🎨 Drawing...</div>';
-                else if (p.hasGuessed) status = '<div class="player-status guessed-text">✅ Guessed!</div>';
-                else if (gamePhase === 'drawing') status = '<div class="player-status guessing-text">🤔 Guessing...</div>';
-
-                item.innerHTML = `
-                    <span class="player-avatar">${p.avatar}</span>
-                    <div class="player-info">
-                        <div class="player-name">${p.name} ${badges}</div>
-                        <div class="player-score">Score: ${p.score}</div>
-                        ${status}
-                    </div>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        // ============ WORD CHOICE MODAL ============
-        let chooseTimerInterval;
-
-        function showWordChoiceModal(words, timeToChoose) {
-            elements.wordChoicesList.innerHTML = '';
-            words.forEach(word => {
-                const btn = document.createElement('button');
-                btn.className = 'word-choice-btn';
-                btn.textContent = word;
-                btn.addEventListener('click', () => {
-                    socket.emit('word_chosen', { word: word });
-                    elements.wordChoiceModal.classList.remove('show');
-                    clearInterval(chooseTimerInterval);
-                    playSound('choose');
-                });
-                elements.wordChoicesList.appendChild(btn);
-            });
-
-            let timeLeft = timeToChoose;
-            elements.chooseTimer.textContent = `${timeLeft}s to choose...`;
-            chooseTimerInterval = setInterval(() => {
-                timeLeft--;
-                elements.chooseTimer.textContent = `${timeLeft}s to choose...`;
-                if (timeLeft <= 0) {
-                    clearInterval(chooseTimerInterval);
-                    elements.wordChoiceModal.classList.remove('show');
-                }
-            }, 1000);
-
-            elements.wordChoiceModal.classList.add('show');
-        }
-
-        // ============ CHAT ============
-        function addChatMsg(type, message, senderName = '', avatar = '') {
-            const msg = document.createElement('div');
-            switch(type) {
-                case 'system':
-                    msg.className = 'msg msg-system';
-                    msg.textContent = message;
-                    break;
-                case 'correct':
-                    msg.className = 'msg msg-correct';
-                    msg.textContent = message;
-                    break;
-                case 'own-correct':
-                    msg.className = 'msg msg-guessed-own';
-                    msg.textContent = message;
-                    break;
-                case 'close':
-                    msg.className = 'msg msg-close';
-                    msg.textContent = message + ' (so close!)';
-                    break;
-                default:
-                    msg.className = 'msg msg-normal';
-                    msg.innerHTML = `<div class="msg-sender">${avatar} ${senderName}</div>${message}`;
-            }
-            elements.chatMessages.appendChild(msg);
-            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
-        }
-
-        function clearChat() {
-            elements.chatMessages.innerHTML = '';
-        }
-
-        // Chat Send
+        // CHAT & GUESSING
         function sendChat() {
             const text = elements.chatInput.value.trim();
             if (!text) return;
-
-            if (gamePhase === 'drawing' && !isDrawer) {
-                socket.emit('send_guess', { message: text });
-            } else {
-                socket.emit('send_chat', { message: text });
-            }
+            socket.emit(gamePhase === 'drawing' && !isDrawer ? 'send_guess' : 'send_chat', { message: text });
             elements.chatInput.value = '';
         }
 
-        elements.chatSendBtn.addEventListener('click', sendChat);
-        elements.chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendChat();
-        });
+        elements.chatSendBtn.onclick = sendChat;
+        elements.chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendChat(); };
 
-        // ============ CANVAS DRAWING ============
-        function getCanvasPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
+        socket.on('chat_message', (data) => addChatMsg('normal', `${data.senderName}: ${data.message}`));
+        socket.on('correct_guess', (data) => addChatMsg('correct', `🎉 ${data.playerName} guessed it!`));
 
-            if (e.touches) {
-                return {
-                    x: (e.touches[0].clientX - rect.left) * scaleX,
-                    y: (e.touches[0].clientY - rect.top) * scaleY
-                };
-            }
-            return {
-                x: (e.clientX - rect.left) * scaleX,
-                y: (e.clientY - rect.top) * scaleY
-            };
+        function addChatMsg(type, msg) {
+            const div = document.createElement('div');
+            div.className = `msg msg-${type}`;
+            div.textContent = msg;
+            elements.chatMessages.appendChild(div);
+            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
         }
 
-        let lastX, lastY;
+        // DRAWING LOGIC
+        let drawing = false;
+        canvas.onmousedown = (e) => { if (!isDrawer) return; drawing = true; draw(e); };
+        canvas.onmouseup = () => drawing = false;
+        canvas.onmousemove = (e) => { if (drawing && isDrawer) draw(e); };
 
-        function startDraw(e) {
-            if (!isDrawer) return;
-            e.preventDefault();
-            drawing = true;
-            const pos = getCanvasPos(e);
-            lastX = pos.x;
-            lastY = pos.y;
+        function draw(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-            // Draw a dot for click
+            ctx.fillStyle = '#000000';
             ctx.beginPath();
-            ctx.arc(pos.x, pos.y, brushSize / 2, 0, Math.PI * 2);
-            ctx.fillStyle = currentTool === 'eraser' ? '#ffffff' : currentColor;
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fill();
 
-            socket.emit('draw_data', {
-                type: 'dot',
-                x: pos.x,
-                y: pos.y,
-                color: currentTool === 'eraser' ? '#ffffff' : currentColor,
-                size: brushSize
-            });
+            socket.emit('draw_data', { type: 'dot', x: x, y: y, color: '#000000', size: 6 });
         }
 
-        function doDraw(e) {
-            if (!drawing || !isDrawer) return;
-            e.preventDefault();
-            const pos = getCanvasPos(e);
-
+        socket.on('draw_data', (data) => {
+            ctx.fillStyle = data.color;
             ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(pos.x, pos.y);
-            ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : currentColor;
-            ctx.lineWidth = brushSize;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-
-            socket.emit('draw_data', {
-                type: 'line',
-                fromX: lastX,
-                fromY: lastY,
-                toX: pos.x,
-                toY: pos.y,
-                color: currentTool === 'eraser' ? '#ffffff' : currentColor,
-                size: brushSize
-            });
-
-            lastX = pos.x;
-            lastY = pos.y;
-        }
-
-        function endDraw(e) {
-            if (!drawing || !isDrawer) return;
-            drawing = false;
-            saveCanvasState();
-        }
-
-        // Mouse events
-        canvas.addEventListener('mousedown', startDraw);
-        canvas.addEventListener('mousemove', doDraw);
-        canvas.addEventListener('mouseup', endDraw);
-        canvas.addEventListener('mouseleave', endDraw);
-
-        // Touch events
-        canvas.addEventListener('touchstart', startDraw, { passive: false });
-        canvas.addEventListener('touchmove', doDraw, { passive: false });
-        canvas.addEventListener('touchend', endDraw);
-
-        // Draw remote data
-        function drawRemoteData(data) {
-            if (data.type === 'dot') {
-                ctx.beginPath();
-                ctx.arc(data.x, data.y, data.size / 2, 0, Math.PI * 2);
-                ctx.fillStyle = data.color;
-                ctx.fill();
-            } else if (data.type === 'line') {
-                ctx.beginPath();
-                ctx.moveTo(data.fromX, data.fromY);
-                ctx.lineTo(data.toX, data.toY);
-                ctx.strokeStyle = data.color;
-                ctx.lineWidth = data.size;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                ctx.stroke();
-            }
-        }
+            ctx.arc(data.x, data.y, data.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
 
         function clearCanvas() {
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        function saveCanvasState() {
-            historyIndex++;
-            canvasHistory = canvasHistory.slice(0, historyIndex);
-            canvasHistory.push(canvas.toDataURL());
+        function updateWaitingPlayers(players) {
+            elements.waitingPlayersList.innerHTML = '';
+            elements.waitingPlayerCount.textContent = Object.keys(players).length;
+            Object.values(players).forEach(p => {
+                const chip = document.createElement('div');
+                chip.className = 'player-chip';
+                chip.textContent = `${p.avatar} ${p.name}`;
+                elements.waitingPlayersList.appendChild(chip);
+            });
         }
 
-        function undo() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                const img = new Image();
-                img.onload = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                };
-                img.src = canvasHistory[historyIndex];
-                socket.emit('undo_action');
-            }
+        function updateGamePlayers(players) {
+            elements.gamePlayerList.innerHTML = '';
+            Object.values(players).forEach(p => {
+                const div = document.createElement('div');
+                div.style.padding = '6px';
+                div.textContent = `${p.avatar} ${p.name} - ${p.score}pts`;
+                elements.gamePlayerList.appendChild(div);
+            });
         }
-
-        // ============ TOOLBAR ============
-        // Tool buttons
-        document.querySelectorAll('.tool-icon-btn[data-tool]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tool = btn.dataset.tool;
-
-                if (tool === 'clear') {
-                    clearCanvas();
-                    socket.emit('canvas_clear');
-                    saveCanvasState();
-                    return;
-                }
-
-                if (tool === 'undo') {
-                    undo();
-                    return;
-                }
-
-                if (tool === 'fill') {
-                    // Simple fill - just fill entire canvas
-                    ctx.fillStyle = currentColor;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    socket.emit('draw_data', {
-                        type: 'fill',
-                        color: currentColor
-                    });
-                    saveCanvasState();
-                    return;
-                }
-
-                currentTool = tool;
-                document.querySelectorAll('.tool-icon-btn[data-tool]').forEach(b => {
-                    if (['pencil', 'eraser', 'fill'].includes(b.dataset.tool)) {
-                        b.classList.remove('active');
-                    }
-                });
-                btn.classList.add('active');
-            });
-        });
-
-        // Color buttons
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                currentColor = btn.dataset.color;
-                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentTool = 'pencil';
-                document.querySelectorAll('.tool-icon-btn[data-tool]').forEach(b => b.classList.remove('active'));
-                document.querySelector('.tool-icon-btn[data-tool="pencil"]').classList.add('active');
-            });
-        });
-
-        // Custom color picker
-        document.getElementById('customColor').addEventListener('input', (e) => {
-            currentColor = e.target.value;
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-            currentTool = 'pencil';
-        });
-
-        // Brush size
-        document.getElementById('brushSizeSlider').addEventListener('input', (e) => {
-            brushSize = parseInt(e.target.value);
-        });
-
-        // Handle fill from remote
-        socket.on('draw_data', (data) => {
-            if (data.type === 'fill') {
-                ctx.fillStyle = data.color;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-        });
-
-        // ============ INIT ============
-        clearCanvas();
-        elements.playerNameInput.focus();
-
-        // Handle resize
-        window.addEventListener('resize', () => {
-            // Canvas maintains fixed internal resolution
-        });
     </script>
 </body>
 </html>
