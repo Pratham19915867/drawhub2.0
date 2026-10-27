@@ -1,0 +1,283 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🎨 DrawTogether - Multiplayer Drawing Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- PARTICLES BACKGROUND -->
+  <div id="particles"></div>
+
+  <!-- SCREEN: HOME -->
+  <div id="screen-home" class="screen active">
+    <div class="home-container">
+      <div class="logo-section">
+        <div class="logo-icon">🎨</div>
+        <h1 class="logo-text">Draw<span>Together</span></h1>
+        <p class="tagline">Draw, Guess & Have Fun!</p>
+      </div>
+
+      <div class="home-form">
+        <div class="input-group">
+          <label for="playerName">Your Name</label>
+          <input type="text" id="playerName" placeholder="Enter your name..." maxlength="15" autocomplete="off">
+        </div>
+
+        <div class="avatar-picker">
+          <label>Choose Avatar</label>
+          <div class="avatar-grid" id="avatarGrid">
+            <div class="avatar-option selected" data-avatar="🎨">🎨</div>
+            <div class="avatar-option" data-avatar="🖌️">🖌️</div>
+            <div class="avatar-option" data-avatar="✏️">✏️</div>
+            <div class="avatar-option" data-avatar="🎭">🎭</div>
+            <div class="avatar-option" data-avatar="🌟">🌟</div>
+            <div class="avatar-option" data-avatar="🔥">🔥</div>
+            <div class="avatar-option" data-avatar="💎">💎</div>
+            <div class="avatar-option" data-avatar="🎮">🎮</div>
+            <div class="avatar-option" data-avatar="🎯">🎯</div>
+            <div class="avatar-option" data-avatar="🏆">🏆</div>
+            <div class="avatar-option" data-avatar="🦊">🦊</div>
+            <div class="avatar-option" data-avatar="🐱">🐱</div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-primary btn-lg" id="btnCreateRoom">
+            <span class="btn-icon">🏠</span>
+            Create Room
+          </button>
+          <div class="divider"><span>OR</span></div>
+          <div class="join-row">
+            <input type="text" id="roomCodeInput" placeholder="Room Code" maxlength="6" autocomplete="off" style="text-transform: uppercase;">
+            <button class="btn btn-secondary" id="btnJoinRoom">
+              <span class="btn-icon">🚪</span>
+              Join
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: LOBBY -->
+  <div id="screen-lobby" class="screen">
+    <div class="lobby-container">
+      <div class="lobby-header">
+        <h2>🎨 Waiting Room</h2>
+        <div class="room-code-display">
+          <span>Room Code:</span>
+          <span class="code" id="lobbyRoomCode">XXXX</span>
+          <button class="btn-copy" id="btnCopyCode" title="Copy Code">📋</button>
+        </div>
+      </div>
+
+      <div class="lobby-settings" id="lobbySettings">
+        <h3>⚙️ Game Settings</h3>
+        <div class="setting-row">
+          <label>Rounds:</label>
+          <div class="setting-control">
+            <button class="btn-sm" id="roundsMinus">-</button>
+            <span id="roundsValue">5</span>
+            <button class="btn-sm" id="roundsPlus">+</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <label>Draw Time:</label>
+          <div class="setting-control">
+            <button class="btn-sm" id="timeMinus">-</button>
+            <span id="timeValue">280s</span>
+            <button class="btn-sm" id="timePlus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lobby-players">
+        <h3>👥 Players (<span id="playerCount">0</span>/12)</h3>
+        <div class="players-grid" id="lobbyPlayersList"></div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" id="btnStartGame" style="display:none;">
+        <span class="btn-icon">🚀</span>
+        Start Game
+      </button>
+      <p class="waiting-text" id="waitingText">Waiting for host to start...</p>
+    </div>
+  </div>
+
+  <!-- SCREEN: GAME -->
+  <div id="screen-game" class="screen">
+    <div class="game-container">
+      <!-- TOP BAR -->
+      <div class="game-topbar">
+        <div class="topbar-left">
+          <div class="round-info">
+            Round <span id="currentRound">1</span>/<span id="totalRounds">5</span>
+          </div>
+        </div>
+        <div class="topbar-center">
+          <div class="word-display" id="wordDisplay">
+            <span class="word-hint" id="wordHint">Waiting...</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="timer-display" id="timerDisplay">
+            <div class="timer-circle">
+              <svg viewBox="0 0 36 36">
+                <path class="timer-bg"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="timer-progress" id="timerProgress"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  stroke-dasharray="100, 100"/>
+              </svg>
+              <span class="timer-text" id="timerText">280</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN GAME AREA -->
+      <div class="game-main">
+        <!-- PLAYERS SIDEBAR -->
+        <div class="players-sidebar" id="playersSidebar">
+          <div class="sidebar-title">Players</div>
+          <div class="players-list" id="gamePlayersList"></div>
+        </div>
+
+        <!-- CANVAS AREA -->
+        <div class="canvas-area">
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <canvas id="gameCanvas"></canvas>
+            <!-- OVERLAY: Choosing word -->
+            <div class="canvas-overlay" id="overlayChoosing" style="display:none;">
+              <div class="overlay-content">
+                <h3>🎨 <span id="drawerNameChoosing">Player</span> is choosing a word...</h3>
+                <div class="choosing-dots">
+                  <span>.</span><span>.</span><span>.</span>
+                </div>
+              </div>
+            </div>
+            <!-- OVERLAY: Word selection (for drawer) -->
+            <div class="canvas-overlay" id="overlayWordSelect" style="display:none;">
+              <div class="overlay-content">
+                <h3>Choose a word to draw! ✏️</h3>
+                <div class="word-options" id="wordOptions"></div>
+                <div class="choose-timer">
+                  <span id="chooseTimerText">15</span>s
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DRAWING TOOLS -->
+          <div class="drawing-tools" id="drawingTools" style="display:none;">
+            <div class="tools-row">
+              <div class="color-palette" id="colorPalette">
+                <div class="color-swatch selected" data-color="#000000" style="background:#000000;"></div>
+                <div class="color-swatch" data-color="#FFFFFF" style="background:#FFFFFF; border:1px solid #ccc;"></div>
+                <div class="color-swatch" data-color="#FF0000" style="background:#FF0000;"></div>
+                <div class="color-swatch" data-color="#FF6B00" style="background:#FF6B00;"></div>
+                <div class="color-swatch" data-color="#FFD700" style="background:#FFD700;"></div>
+                <div class="color-swatch" data-color="#00CC00" style="background:#00CC00;"></div>
+                <div class="color-swatch" data-color="#0066FF" style="background:#0066FF;"></div>
+                <div class="color-swatch" data-color="#9900FF" style="background:#9900FF;"></div>
+                <div class="color-swatch" data-color="#FF69B4" style="background:#FF69B4;"></div>
+                <div class="color-swatch" data-color="#8B4513" style="background:#8B4513;"></div>
+                <div class="color-swatch" data-color="#808080" style="background:#808080;"></div>
+                <div class="color-swatch" data-color="#00CED1" style="background:#00CED1;"></div>
+              </div>
+              <div class="tool-buttons">
+                <div class="brush-size">
+                  <input type="range" id="brushSize" min="2" max="40" value="5">
+                  <span id="brushSizeLabel">5</span>
+                </div>
+                <button class="tool-btn active" id="btnBrush" title="Brush">✏️</button>
+                <button class="tool-btn" id="btnEraser" title="Eraser">🧹</button>
+                <button class="tool-btn" id="btnFill" title="Fill">🪣</button>
+                <button class="tool-btn" id="btnUndo" title="Undo">↩️</button>
+                <button class="tool-btn danger" id="btnClear" title="Clear All">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAT SIDEBAR -->
+        <div class="chat-sidebar">
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Type your guess here..." maxlength="100" autocomplete="off">
+            <button class="btn-send" id="btnSend">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP: Turn End -->
+  <div class="popup-overlay" id="popupTurnEnd" style="display:none;">
+    <div class="popup-card turn-end-card">
+      <div class="popup-header">
+        <h2>⏰ Time's Up!</h2>
+      </div>
+      <div class="popup-body">
+        <div class="reveal-word">
+          The word was: <span class="revealed-word" id="revealedWord">???</span>
+        </div>
+        <div class="turn-stats">
+          <p><span id="guessedCountDisplay">0</span> out of <span id="totalPlayersDisplay">0</span> players guessed correctly!</p>
+          <p>Drawer <span id="drawerNameDisplay">???</span> earned <span id="drawerPointsDisplay">0</span> points</p>
+        </div>
+        <div class="mini-scoreboard" id="miniScoreboard"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP: Game End -->
+  <div class="popup-overlay" id="popupGameEnd" style="display:none;">
+    <div class="popup-card game-end-card">
+      <div class="popup-header">
+        <h2>🏆 Game Over!</h2>
+      </div>
+      <div class="popup-body">
+        <div class="winner-section">
+          <div class="winner-crown">👑</div>
+          <div class="winner-avatar" id="winnerAvatar">🎨</div>
+          <div class="winner-name" id="winnerName">Player</div>
+          <div class="winner-score" id="winnerScore">0 points</div>
+        </div>
+        <div class="final-scoreboard" id="finalScoreboard"></div>
+        <button class="btn btn-primary" id="btnPlayAgain">
+          <span class="btn-icon">🔄</span>
+          Play Again
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP: Correct Guess -->
+  <div class="popup-overlay popup-toast" id="popupCorrectGuess" style="display:none;">
+    <div class="toast-card correct-toast">
+      <div class="toast-icon">🎉</div>
+      <div class="toast-text">
+        <h3>Correct!</h3>
+        <p>+<span id="guessPoints">0</span> points</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFETTI CANVAS -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- SCRIPTS -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="confetti.js"></script>
+  <script src="sounds.js"></script>
+  <script src="canvas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
